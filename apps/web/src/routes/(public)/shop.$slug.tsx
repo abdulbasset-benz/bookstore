@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/shop/$slug")({
+export const Route = createFileRoute("/(public)/shop/$slug")({
   component: BookPage,
 });
 
