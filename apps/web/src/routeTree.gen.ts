@@ -9,119 +9,186 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as publicIndexRouteImport } from './routes/(public)/index'
-import { Route as publicShopRouteImport } from './routes/(public)/shop'
-import { Route as adminAdminIndexRouteImport } from './routes/(admin)/admin.index'
-import { Route as publicShopSlugRouteImport } from './routes/(public)/shop.$slug'
+import { Route as PublicIndexRouteImport } from './routes/public/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as PublicBooksRouteImport } from './routes/public/books'
+import { Route as PublicLayoutRouteImport } from './routes/public/_layout'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminLayoutRouteImport } from './routes/admin/_layout'
+import { Route as PublicBooksSlugRouteImport } from './routes/public/books.$slug'
 
-const publicIndexRoute = publicIndexRouteImport.update({
-  id: '/(public)/',
-  path: '/',
+const PublicIndexRoute = PublicIndexRouteImport.update({
+  id: '/public/',
+  path: '/public/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const publicShopRoute = publicShopRouteImport.update({
-  id: '/(public)/shop',
-  path: '/shop',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const adminAdminIndexRoute = adminAdminIndexRouteImport.update({
-  id: '/(admin)/admin/',
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const publicShopSlugRoute = publicShopSlugRouteImport.update({
+const PublicBooksRoute = PublicBooksRouteImport.update({
+  id: '/public/books',
+  path: '/public/books',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicLayoutRoute = PublicLayoutRouteImport.update({
+  id: '/public/_layout',
+  path: '/public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLayoutRoute = AdminLayoutRouteImport.update({
+  id: '/admin/_layout',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicBooksSlugRoute = PublicBooksSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => publicShopRoute,
+  getParentRoute: () => PublicBooksRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/shop': typeof publicShopRouteWithChildren
-  '/': typeof publicIndexRoute
-  '/shop/$slug': typeof publicShopSlugRoute
-  '/admin/': typeof adminAdminIndexRoute
+  '/admin': typeof AdminLayoutRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/public': typeof PublicLayoutRoute
+  '/public/books': typeof PublicBooksRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/public/': typeof PublicIndexRoute
+  '/public/books/$slug': typeof PublicBooksSlugRoute
 }
 export interface FileRoutesByTo {
-  '/shop': typeof publicShopRouteWithChildren
-  '/': typeof publicIndexRoute
-  '/shop/$slug': typeof publicShopSlugRoute
-  '/admin': typeof adminAdminIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/public': typeof PublicIndexRoute
+  '/public/books': typeof PublicBooksRouteWithChildren
+  '/public/books/$slug': typeof PublicBooksSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/(public)/shop': typeof publicShopRouteWithChildren
-  '/(public)/': typeof publicIndexRoute
-  '/(public)/shop/$slug': typeof publicShopSlugRoute
-  '/(admin)/admin/': typeof adminAdminIndexRoute
+  '/admin/_layout': typeof AdminLayoutRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/public/_layout': typeof PublicLayoutRoute
+  '/public/books': typeof PublicBooksRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/public/': typeof PublicIndexRoute
+  '/public/books/$slug': typeof PublicBooksSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/shop' | '/' | '/shop/$slug' | '/admin/'
+  fullPaths:
+    | '/admin'
+    | '/admin/login'
+    | '/public'
+    | '/public/books'
+    | '/admin/'
+    | '/public/'
+    | '/public/books/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/shop' | '/' | '/shop/$slug' | '/admin'
+  to:
+    | '/admin'
+    | '/admin/login'
+    | '/public'
+    | '/public/books'
+    | '/public/books/$slug'
   id:
     | '__root__'
-    | '/(public)/shop'
-    | '/(public)/'
-    | '/(public)/shop/$slug'
-    | '/(admin)/admin/'
+    | '/admin/_layout'
+    | '/admin/login'
+    | '/public/_layout'
+    | '/public/books'
+    | '/admin/'
+    | '/public/'
+    | '/public/books/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  publicShopRoute: typeof publicShopRouteWithChildren
-  publicIndexRoute: typeof publicIndexRoute
-  adminAdminIndexRoute: typeof adminAdminIndexRoute
+  AdminLayoutRoute: typeof AdminLayoutRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  PublicLayoutRoute: typeof PublicLayoutRoute
+  PublicBooksRoute: typeof PublicBooksRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
+  PublicIndexRoute: typeof PublicIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(public)/': {
-      id: '/(public)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof publicIndexRouteImport
+    '/public/': {
+      id: '/public/'
+      path: '/public'
+      fullPath: '/public/'
+      preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(public)/shop': {
-      id: '/(public)/shop'
-      path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof publicShopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(admin)/admin/': {
-      id: '/(admin)/admin/'
+    '/admin/': {
+      id: '/admin/'
       path: '/admin'
       fullPath: '/admin/'
-      preLoaderRoute: typeof adminAdminIndexRouteImport
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(public)/shop/$slug': {
-      id: '/(public)/shop/$slug'
+    '/public/books': {
+      id: '/public/books'
+      path: '/public/books'
+      fullPath: '/public/books'
+      preLoaderRoute: typeof PublicBooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/public/_layout': {
+      id: '/public/_layout'
+      path: '/public'
+      fullPath: '/public'
+      preLoaderRoute: typeof PublicLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/_layout': {
+      id: '/admin/_layout'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/public/books/$slug': {
+      id: '/public/books/$slug'
       path: '/$slug'
-      fullPath: '/shop/$slug'
-      preLoaderRoute: typeof publicShopSlugRouteImport
-      parentRoute: typeof publicShopRoute
+      fullPath: '/public/books/$slug'
+      preLoaderRoute: typeof PublicBooksSlugRouteImport
+      parentRoute: typeof PublicBooksRoute
     }
   }
 }
 
-interface publicShopRouteChildren {
-  publicShopSlugRoute: typeof publicShopSlugRoute
+interface PublicBooksRouteChildren {
+  PublicBooksSlugRoute: typeof PublicBooksSlugRoute
 }
 
-const publicShopRouteChildren: publicShopRouteChildren = {
-  publicShopSlugRoute: publicShopSlugRoute,
+const PublicBooksRouteChildren: PublicBooksRouteChildren = {
+  PublicBooksSlugRoute: PublicBooksSlugRoute,
 }
 
-const publicShopRouteWithChildren = publicShopRoute._addFileChildren(
-  publicShopRouteChildren,
+const PublicBooksRouteWithChildren = PublicBooksRoute._addFileChildren(
+  PublicBooksRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  publicShopRoute: publicShopRouteWithChildren,
-  publicIndexRoute: publicIndexRoute,
-  adminAdminIndexRoute: adminAdminIndexRoute,
+  AdminLayoutRoute: AdminLayoutRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  PublicLayoutRoute: PublicLayoutRoute,
+  PublicBooksRoute: PublicBooksRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
+  PublicIndexRoute: PublicIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
