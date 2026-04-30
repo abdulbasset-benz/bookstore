@@ -1,4 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export const Route = createFileRoute("/public/_layout")({
   component: PublicLayout,
@@ -6,14 +8,14 @@ export const Route = createFileRoute("/public/_layout")({
 
 function PublicLayout() {
   return (
-    <div>
-      <header className="border-b p-4">Navbar</header>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
 
-      <main className="min-h-screen">
+      <main className="flex-1">
         <Outlet />
       </main>
 
-      <footer className="border-t p-4">Footer</footer>
+      <Footer />
     </div>
   );
 }
